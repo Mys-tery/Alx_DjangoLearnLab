@@ -1,34 +1,28 @@
 from django.db import models
-class Author(models.Model):
-    name = models.CharField(max_length=100)
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+class UserProfile(models.Model):
+    ROLE_CHOICES = [
+        ('Admin', 'Admin'),
+        ('Librarian', 'Librarian'),
+        ('Member', 'Member'),
+    ]
+
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='Member')
 
     def __str__(self):
-        return self.name
+        return f"{self.user.username} - {self.role}"
 
 
-# Book model (Many Books belong to one Author)
-class Book(models.Model):
-    title = models.CharField(max_length=200)
-    author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name="books")
+# Signals to auto-create a profile for new users
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        UserProfile.objects.create(user=instance)
 
-    def __str__(self):
-        return self.title
-
-
-# Library model (Many Libraries can have Many Books)
-class Library(models.Model):
-    name = models.CharField(max_length=100)
-    books = models.ManyToManyField(Book, related_name="libraries")
-
-    def __str__(self):
-        return self.name
-
-
-# Librarian model (One Librarian per Library)
-class Librarian(models.Model):
-    name = models.CharField(max_length=100)
-    library = models.OneToOneField(Library, on_delete=models.CASCADE, related_name="librarian")
-
-    def __str__(self):
-        return self.name
-# Create your models here.
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.userprofile.save()
