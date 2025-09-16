@@ -1,14 +1,14 @@
-# advanced_features_and_security/accounts/models.py
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+
 class CustomUserManager(BaseUserManager):
-    """Custom manager for handling user creation with extra fields."""
+    """Custom manager for CustomUser with email as username"""
 
     def create_user(self, username, email, password=None, **extra_fields):
         if not email:
-            raise ValueError(_("The Email field must be set"))
+            raise ValueError(_("Users must have an email address"))
         email = self.normalize_email(email)
         user = self.model(username=username, email=email, **extra_fields)
         user.set_password(password)
@@ -28,6 +28,8 @@ class CustomUserManager(BaseUserManager):
 
 
 class CustomUser(AbstractUser):
+    """Custom user model extending Django’s AbstractUser"""
+
     date_of_birth = models.DateField(null=True, blank=True)
     profile_photo = models.ImageField(upload_to="profile_photos/", null=True, blank=True)
 
