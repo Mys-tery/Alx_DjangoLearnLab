@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bookshelf',
     'users',
+    'relationship_app',
 ]
 
 MIDDLEWARE = [
@@ -127,3 +128,4 @@ import os
 STATICFILES_DIRS = [BASE_DIR / "static"]
 
 AUTH_USER_MODEL = "users.CustomUser"
+
