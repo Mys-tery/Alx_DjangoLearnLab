@@ -127,7 +127,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 import os
 STATICFILES_DIRS = [BASE_DIR / "static"]
 
-AUTH_USER_MODEL = "users.CustomUser"
+AUTH_USER_MODEL = "bookshelf.CustomUser"
 
 
 
