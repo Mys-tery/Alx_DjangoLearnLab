@@ -1,6 +1,6 @@
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
-
+from django.conf import settings  
 
 
 class CustomUserManager(BaseUserManager):
@@ -28,7 +28,9 @@ class CustomUserManager(BaseUserManager):
 class CustomUser(AbstractUser):
     date_of_birth = models.DateField(null=True, blank=True)
     profile_photo = models.ImageField(upload_to="profile_photos/", null=True, blank=True)
-
+    published_date = models.DateField(null=True, blank=True)
+    isbn = models.CharField(max_length=13, unique=True)
+    added_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     objects = CustomUserManager()
 
     def __str__(self):
