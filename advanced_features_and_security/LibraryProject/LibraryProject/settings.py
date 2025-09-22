@@ -130,5 +130,32 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 AUTH_USER_MODEL = "bookshelf.CustomUser"
 
 
+# SECURITY SETTINGS
+DEBUG = False  # Always False in production
+
+# Protect against XSS attacks in supported browsers
+SECURE_BROWSER_XSS_FILTER = True
+
+# Prevent clickjacking
+X_FRAME_OPTIONS = 'DENY'
+
+# Prevent MIME type sniffing
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# Ensure cookies are only sent over HTTPS
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+
+# Optional: Redirect all HTTP to HTTPS
+SECURE_SSL_REDIRECT = True
+ 
+ MIDDLEWARE = [
+    # existing middleware
+    'csp.middleware.CSPMiddleware',
+]
+
+CSP_DEFAULT_SRC = ("'self'",)
+CSP_SCRIPT_SRC = ("'self'",)
+CSP_STYLE_SRC = ("'self'",)
 
 
