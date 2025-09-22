@@ -1,8 +1,10 @@
-from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
-from django.conf import settings  
+from django.conf import settings
+from django.contrib.auth.models import AbstractUser, BaseUserManager
 
-
+# -------------------------------
+# Custom User
+# -------------------------------
 class CustomUserManager(BaseUserManager):
     def create_user(self, username, email=None, password=None, **extra_fields):
         if not username:
@@ -16,21 +18,16 @@ class CustomUserManager(BaseUserManager):
     def create_superuser(self, username, email=None, password=None, **extra_fields):
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_superuser", True)
-
         if extra_fields.get("is_staff") is not True:
             raise ValueError("Superuser must have is_staff=True.")
         if extra_fields.get("is_superuser") is not True:
             raise ValueError("Superuser must have is_superuser=True.")
-
         return self.create_user(username, email, password, **extra_fields)
-
 
 class CustomUser(AbstractUser):
     date_of_birth = models.DateField(null=True, blank=True)
     profile_photo = models.ImageField(upload_to="profile_photos/", null=True, blank=True)
-    published_date = models.DateField(null=True, blank=True)
-    isbn = models.CharField(max_length=13, unique=True)
-    added_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+
     objects = CustomUserManager()
 
     def __str__(self):
@@ -43,3 +40,16 @@ class CustomUser(AbstractUser):
             ("can_edit", "Can edit user"),
             ("can_delete", "Can delete user"),
         ]
+
+# -------------------------------
+# Book Model
+# -------------------------------
+class Book(models.Model):
+    title = models.CharField(max_length=255)
+    author = models.CharField(max_length=255)
+    published_date = models.DateField(null=True, blank=True)
+    isbn = models.CharField(max_length=13, unique=True)
+    added_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
+
+    def __str__(self):
+        return self.title
