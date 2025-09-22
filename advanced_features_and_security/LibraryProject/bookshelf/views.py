@@ -1,8 +1,10 @@
 # advanced_features_and_s/views.py
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import permission_required
-from .forms import BookSearchForm, BookForm
 from .models import Book
+from .forms import BookSearchForm, BookForm, ExampleForm
+
+
 
 @permission_required('advanced_features_and_s.can_view', raise_exception=True)
 def book_list(request):
