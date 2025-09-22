@@ -1,6 +1,8 @@
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
 
+
+
 class CustomUserManager(BaseUserManager):
     def create_user(self, username, email=None, password=None, **extra_fields):
         if not username:
@@ -31,3 +33,11 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.username
+
+    class Meta:
+        permissions = [
+            ("can_view", "Can view user"),
+            ("can_create", "Can create user"),
+            ("can_edit", "Can edit user"),
+            ("can_delete", "Can delete user"),
+        ]

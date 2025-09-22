@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
                 ('published_date', models.DateField()),
             ],
             options={
-                'permissions': [('can_add_book', 'Can add book'), ('can_change_book', 'Can change book'), ('can_delete_book', 'Can delete book')],
+                'permissions': [('can_view', 'Can view book'), ('can_create', 'Can create book'), ('can_edit', 'Can edit book'), ('can_delete', 'Can delete book')],
             },
         ),
     ]
