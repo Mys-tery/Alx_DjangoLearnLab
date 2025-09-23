@@ -149,7 +149,7 @@ SESSION_COOKIE_SECURE = True
 # Optional: Redirect all HTTP to HTTPS
 SECURE_SSL_REDIRECT = True
  
- MIDDLEWARE = [
+MIDDLEWARE = [
     # existing middleware
     'csp.middleware.CSPMiddleware',
 ]
@@ -157,5 +157,26 @@ SECURE_SSL_REDIRECT = True
 CSP_DEFAULT_SRC = ("'self'",)
 CSP_SCRIPT_SRC = ("'self'",)
 CSP_STYLE_SRC = ("'self'",)
+ 
 
+# =========================
+# 🔐 Security Configurations
+# =========================
 
+# Redirect all HTTP traffic to HTTPS
+SECURE_SSL_REDIRECT = True
+
+# HTTP Strict Transport Security (HSTS)
+SECURE_HSTS_SECONDS = 31536000  # 1 year
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+
+# Secure cookies (only sent via HTTPS)
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+# Browser security headers
+X_FRAME_OPTIONS = "DENY"  # Protects against clickjacking
+SECURE_CONTENT_TYPE_NOSNIFF = True  # Prevents MIME-sniffing
+SECURE_BROWSER_XSS_FILTER = True  # Enables browser XSS filter
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", ".localhost"]
