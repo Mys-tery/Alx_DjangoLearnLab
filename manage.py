@@ -6,8 +6,12 @@ import sys
 
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'api_project.settings')
-    try:
+HEAD
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'api_project.settings')
+=======
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'advanced_api_project.settings')
+81f089b (Advanced API project with serializers, views, and permissions)
+try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
         raise ImportError(
