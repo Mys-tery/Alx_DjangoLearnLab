@@ -3,6 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
 from .models import Post
 from .forms import PostForm
+from django.contrib.auth.decorators import login_required
 
 # ListView: Display all blog posts in reverse chronological order
 class PostListView(ListView):
