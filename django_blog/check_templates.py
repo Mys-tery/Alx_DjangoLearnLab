@@ -1,9 +1,13 @@
 import os
+from pathlib import Path
 
-# Path to your blog templates directory
-TEMPLATES_DIR = os.path.join(os.path.dirname(__file__), 'blog', 'templates', 'blog')
+# Base directory of the project (where manage.py is)
+BASE_DIR = Path(__file__).resolve().parent
 
-# Required templates for CRUD operations
+# Path to blog templates folder
+TEMPLATES_DIR = BASE_DIR / 'blog' / 'templates' / 'blog'
+
+# Required templates for CRUD
 required_templates = [
     'post_list.html',
     'post_detail.html',
@@ -11,11 +15,8 @@ required_templates = [
     'post_confirm_delete.html'
 ]
 
-missing = []
-
-for template in required_templates:
-    if not os.path.exists(os.path.join(TEMPLATES_DIR, template)):
-        missing.append(template)
+# Check which templates are missing
+missing = [t for t in required_templates if not (TEMPLATES_DIR / t).exists()]
 
 if missing:
     print("❌ Missing templates:")
