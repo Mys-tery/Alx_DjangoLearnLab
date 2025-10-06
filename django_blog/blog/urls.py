@@ -2,6 +2,8 @@ from django.urls import path
 from .views import PostListView, PostDetailView, PostCreateView, PostUpdateView, PostDeleteView
 from .views import CommentCreateView, CommentUpdateView, CommentDeleteView
 from django.urls import path
+
+from django.urls import path
 from .views import (
     PostListView, PostDetailView, PostCreateView, PostUpdateView, PostDeleteView,
     CommentCreateView, CommentUpdateView, CommentDeleteView
