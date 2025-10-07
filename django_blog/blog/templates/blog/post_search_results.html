@@ -1,0 +1,13 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Search Results</title>
+    <link rel="stylesheet" href="{% static 'blog/css/style.css' %}" />
+  </head>
+  <body>
+    <h1>Search Results</h1>
+    <p>Query: "{{ request.GET.q }}"</p>
+    {% include 'blog/post_list.html' %}
+  </body>
+</html>

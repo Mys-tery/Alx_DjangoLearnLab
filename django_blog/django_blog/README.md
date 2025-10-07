@@ -21,3 +21,8 @@ This is a simple Django blog project that allows users to create, read, update, 
 git clone <your-repo-url>
 cd django_blog
 ```
+
+## Tags & Search
+
+- Tags: Authors can add comma-separated tags when creating or editing a post. Click on a tag to view all posts with that tag.
+- Search: Use the search box on the posts page to find posts by title, content, or tag names. Search URL: /search/?q=keyword
