@@ -1,6 +1,8 @@
 from django import forms
 from .models import Post
 from .models import Comment
+from taggit.forms import TagWidget
+
 # ModelForm for Post creation and updating
 class PostForm(forms.ModelForm):
     class Meta:
@@ -8,6 +10,7 @@ class PostForm(forms.ModelForm):
         fields = ['title', 'content', 'tags']  # include tags
         widgets = {
             'content': forms.Textarea(attrs={'rows': 5}),
+            'tags': TagWidget(),
         } 
 
 
