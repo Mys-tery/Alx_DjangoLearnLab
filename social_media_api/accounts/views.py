@@ -6,6 +6,8 @@ from rest_framework.views import APIView
 from rest_framework.decorators import api_view, permission_classes
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
+from rest_framework import generics
+
 
 from .models import CustomUser
 from .serializers import RegisterSerializer, UserSerializer
