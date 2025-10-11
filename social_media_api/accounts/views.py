@@ -6,7 +6,9 @@ from rest_framework.views import APIView
 from rest_framework.decorators import api_view, permission_classes
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
-from rest_framework import generics.GenericAPIView
+from rest_framework import generics
+
+
 
 
 from .models import CustomUser
@@ -70,3 +72,6 @@ def unfollow_user(request, user_id):
 
     request.user.following.remove(target_user)
     return Response({"detail": f"You have unfollowed {target_user.username}."}, status=status.HTTP_200_OK)
+
+class RegisterView(generics.GenericAPIView):
+    ...
